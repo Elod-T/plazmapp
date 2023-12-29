@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { PlazmAPPContext } from "../App";
 import { useNavigate } from "react-router-dom";
-import { Button, TextInput, DateInput } from "./design";
+import { Button, NumberInput, DateInput } from "./design";
 import BasePage from "./BasePage";
 
 function LoginForm() {
@@ -29,10 +29,17 @@ function LoginForm() {
 
     if (plazmAPP) {
       setLoading(true);
-      await plazmAPP.login({
-        donor_number: donorNumber,
-        date_of_birth: dateOfBirth,
-      });
+
+      try {
+        await plazmAPP.login({
+          donor_number: donorNumber,
+          date_of_birth: dateOfBirth,
+        });
+      } catch (e) {
+        alert("Hibás donorszám vagy születési dátum!");
+        setLoading(false);
+        return;
+      }
 
       setLoading(false);
       navigate("/dashboard");
@@ -45,7 +52,7 @@ function LoginForm() {
         <h1 className="text-3xl font-bold mb-10 mt-32">PlazmAPP</h1>
 
         <div className="flex flex-col gap-y-5">
-          <TextInput
+          <NumberInput
             value={donorNumber}
             onChange={(e) => setDonorNumber(e.target.value)}
           />
