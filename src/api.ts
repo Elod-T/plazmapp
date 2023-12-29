@@ -110,7 +110,6 @@ class PlazmAPP {
       },
       data,
     };
-    console.log(config);
 
     const response = await axios(config);
 
