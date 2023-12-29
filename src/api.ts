@@ -85,6 +85,9 @@ class PlazmAPP {
 
   logout() {
     localStorage.removeItem("state");
+    localStorage.removeItem("openTimes");
+    localStorage.removeItem("myReservations");
+    localStorage.removeItem("myMessages");
     window.location.reload();
   }
 
