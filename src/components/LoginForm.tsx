@@ -54,15 +54,15 @@ function LoginForm() {
             value={dateOfBirth}
             onChange={(e) => setDateOfBirth(e.target.value)}
           />
-        </div>
 
-        <Button
-          className="mt-10 bg-[#ff3b30] dark:bg-[#ff453a] hover:dark:bg-[#ff3a3ac7]"
-          onClick={handleLogin}
-          loading={loading}
-        >
-          Bejelentkezés
-        </Button>
+          <Button
+            className="mt-5 bg-[#ff3b30] dark:bg-[#ff453a] hover:dark:bg-[#ff3a3ac7]"
+            onClick={handleLogin}
+            loading={loading}
+          >
+            Bejelentkezés
+          </Button>
+        </div>
       </div>
     </BasePage>
   );
