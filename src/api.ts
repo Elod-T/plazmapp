@@ -124,7 +124,7 @@ class PlazmAPP {
 
   async refresh() {
     const config = {
-      method: "post",
+      method: "get",
       url: this.REFRESH_URL,
       headers: {
         Authorization: `Bearer ${this.ACCESS_TOKEN}`,
