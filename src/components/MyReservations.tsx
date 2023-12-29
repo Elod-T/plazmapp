@@ -12,10 +12,32 @@ const MyReservations = () => {
 
   useEffect(() => {
     const getReservations = async () => {
+      const cachedReservations = localStorage.getItem("myReservations");
+
+      if (cachedReservations) {
+        const { reservations, createdAt } = JSON.parse(cachedReservations) as {
+          reservations: ReservationsResponse;
+          createdAt: number;
+        };
+
+        if (new Date().getTime() - createdAt < 1000 * 60 * 5) {
+          setMyReservations(reservations);
+          setLoading(false);
+          return;
+        }
+      }
+
       const reservations = await context?.plazmAPP.getMyReservations();
       if (!reservations) {
         return;
       }
+
+      const data = {
+        reservations,
+        createdAt: new Date().getTime(),
+      };
+
+      localStorage.setItem("myReservations", JSON.stringify(data));
 
       setMyReservations(reservations);
       setLoading(false);
