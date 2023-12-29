@@ -10,8 +10,31 @@ const Messages = () => {
 
   useEffect(() => {
     const fetchMessages = async () => {
+      const cachedMessages = localStorage.getItem("myMessages");
+
+      if (cachedMessages) {
+        const { messages, createdAt } = JSON.parse(cachedMessages) as {
+          messages: Message[];
+          createdAt: number;
+        };
+
+        if (new Date().getTime() - createdAt < 1000 * 60 * 60 * 24) {
+          setMessages(messages);
+          setLoading(false);
+          return;
+        }
+      }
+
       setLoading(true);
       const messages = await plazmAPP.getMyMessages();
+
+      const data = {
+        messages,
+        createdAt: new Date().getTime(),
+      };
+
+      localStorage.setItem("myMessages", JSON.stringify(data));
+
       setMessages(messages);
       setLoading(false);
     };
